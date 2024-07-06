@@ -1,15 +1,19 @@
 'use client';
 
-import { Controller, useFormContext } from 'react-hook-form';
-import { FormControl, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Controller, FieldValues, useFormContext, UseFormReturn } from 'react-hook-form';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 
-const StudyTimeField = () => {
+interface SubjectField<T extends FieldValues> {
+  form: UseFormReturn<T>;
+}
+
+const StudyTimeField = <T extends FieldValues>({ form }: SubjectField<T>) => {
   const { control } = useFormContext();
 
   return (
-    <Controller
-      control={control}
+    <FormField
+      control={form.control}
       name='studyTime'
       render={({ field }) => (
         <FormItem>

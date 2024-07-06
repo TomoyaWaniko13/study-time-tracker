@@ -1,15 +1,19 @@
 'use client';
 
-import { Controller, useFormContext } from 'react-hook-form';
+import { Controller, FieldValues, useFormContext, UseFormReturn } from 'react-hook-form';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { FormControl, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 
-const SubjectField = () => {
+interface SubjectField<T extends FieldValues> {
+  form: UseFormReturn<T>;
+}
+
+const SubjectField = <T extends FieldValues>({ form }: SubjectField<T>) => {
   const { control } = useFormContext();
 
   return (
-    <Controller
-      control={control}
+    <FormField
+      control={form.control}
       name='subject'
       render={({ field }) => (
         <FormItem>

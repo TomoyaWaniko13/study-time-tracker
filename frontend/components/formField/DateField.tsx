@@ -1,6 +1,6 @@
 'use client';
 
-import { useFormContext } from 'react-hook-form';
+import { Control, FieldValues, useFormContext, UseFormReturn } from 'react-hook-form';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -9,12 +9,16 @@ import { CalendarIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 
-const DateField = () => {
+interface DateFieldProps<T extends FieldValues> {
+  form: UseFormReturn<T>;
+}
+
+const DateField = <T extends FieldValues>({ form }: DateFieldProps<T>) => {
   const { control } = useFormContext();
 
   return (
     <FormField
-      control={form.control}
+      control={form.control as Control<T>}
       name='date'
       render={({ field }) => (
         <FormItem className='flex flex-col'>
