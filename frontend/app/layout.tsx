@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Figtree } from 'next/font/google';
+import Header from '@/components/header/Header';
+import Footer from '@/components/Footer';
+import { UserProvider } from '@auth0/nextjs-auth0/client';
 
 const roboto = Figtree({
   weight: '400',
@@ -19,7 +22,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={roboto.className}>{children}</body>
+      <UserProvider>
+        <body className={roboto.className}>
+          <Header />
+          {children}
+          <Footer />
+        </body>
+      </UserProvider>
     </html>
   );
 }
