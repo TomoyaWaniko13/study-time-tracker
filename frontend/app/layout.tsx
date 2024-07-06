@@ -6,7 +6,7 @@ import Footer from '@/components/Footer';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 
 const roboto = Figtree({
-  weight: '400',
+  weight: '500',
   subsets: ['latin'],
 });
 

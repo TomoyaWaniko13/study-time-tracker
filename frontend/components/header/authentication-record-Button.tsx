@@ -1,11 +1,12 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { useUser } from '@auth0/nextjs-auth0/client';
+import Link from 'next/link';
+import React from 'react';
 
-const UserAuthenticationButton = () => {
+const AuthenticationRecordButton = () => {
   const { user, error, isLoading } = useUser();
 
-  if (!user) return <div>loading....</div>;
   if (error) return <div>{error.message}</div>;
 
   return (
@@ -15,12 +16,17 @@ const UserAuthenticationButton = () => {
           <a href='/api/auth/login'>Login or Signup</a>
         </Button>
       ) : (
-        <Button variant={'destructive'}>
-          <a href={'/api/auth/logout'}>Logout</a>
-        </Button>
+        <>
+          <Button variant={'default'}>
+            <Link href={'/studyTimeForm'}>record study time</Link>
+          </Button>
+          <Button variant={'destructive'}>
+            <a href={'/api/auth/logout'}>Logout</a>
+          </Button>
+        </>
       )}
     </div>
   );
 };
 
-export default UserAuthenticationButton;
+export default AuthenticationRecordButton;
