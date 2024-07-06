@@ -1,5 +1,13 @@
+'use client';
+import Stopwatch from '@/components/Stopwatch';
+
 const HomePage = () => {
-  return <>homePage</>;
+  return (
+    <div className={'text-center'}>
+      <Stopwatch />
+      homePage
+    </div>
+  );
 };
 
 export default HomePage;
