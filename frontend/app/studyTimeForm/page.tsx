@@ -10,16 +10,21 @@ import DateField from '@/components/formField/DateField';
 import SubjectField from '@/components/formField/SubjectField';
 import StudyTimeField from '@/components/formField/StudyTimeField';
 import { formSchema } from '@/schemas/formSchema';
+import Stopwatch from '@/components/Stopwatch';
 
-const RecordFormPage = () => {
+const StudyTimeFormPage = () => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       subject: '',
-      studyTime: '',
+      studyTime: 0,
     },
   });
+
+  const onTimeChange = (timeInSeconds: number) => {
+    form.setValue('studyTime', parseFloat((timeInSeconds / 3600).toFixed(2))); // Convert seconds to hours and set in the form
+  };
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -30,6 +35,7 @@ const RecordFormPage = () => {
 
   return (
     <section className={'p-3 lg:p-20 max-w-3xl'}>
+      <Stopwatch onTimeChange={onTimeChange} />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
           <DateField form={form} />
@@ -42,4 +48,4 @@ const RecordFormPage = () => {
   );
 };
 
-export default RecordFormPage;
+export default StudyTimeFormPage;
