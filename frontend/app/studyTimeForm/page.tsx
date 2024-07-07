@@ -11,7 +11,7 @@ import SubjectField from '@/components/formField/SubjectField';
 import StudyTimeField from '@/components/formField/StudyTimeField';
 import { formSchema } from '@/schemas/formSchema';
 
-export default function RecordFormPage() {
+const RecordFormPage = () => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -40,4 +40,6 @@ export default function RecordFormPage() {
       </Form>
     </section>
   );
-}
+};
+
+export default RecordFormPage;
