@@ -18,13 +18,9 @@ const StudyTimeFormPage = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       subject: '',
-      studyTime: 0,
+      studyTime: '',
     },
   });
-
-  const onTimeChange = (timeInSeconds: number) => {
-    form.setValue('studyTime', parseFloat((timeInSeconds / 3600).toFixed(2))); // Convert seconds to hours and set in the form
-  };
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -35,7 +31,6 @@ const StudyTimeFormPage = () => {
 
   return (
     <section className={'p-3 lg:p-20 max-w-3xl'}>
-      <Stopwatch onTimeChange={onTimeChange} />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
           <DateField form={form} />

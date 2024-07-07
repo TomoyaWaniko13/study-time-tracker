@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 
-const Stopwatch = ({ onTimeChange }) => {
+const Stopwatch = () => {
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
 
@@ -17,13 +17,13 @@ const Stopwatch = ({ onTimeChange }) => {
         // localStorageにtimeの値を保存することで、ページのリロードの後も
         // リロードする前のtimeの値を使うことができる。
         localStorage.setItem('stopwatch-time', newTime.toString());
-        onTimeChange(newTime);
+
         return newTime;
       });
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [isRunning, onTimeChange]);
+  }, [isRunning]);
 
   // localStorageからtimeの値を取得
   useEffect(() => {
@@ -66,7 +66,6 @@ const Stopwatch = ({ onTimeChange }) => {
       setTime(0);
       // localStorageから値を削除
       localStorage.removeItem('stopwatch-time');
-      onTimeChange(0);
     }
   };
 
