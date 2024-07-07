@@ -7,7 +7,6 @@ export const formSchema = z.object({
   studyTime: z
     .string()
     .min(1, { message: 'study time must be provided.' })
-    .transform((val) => Number(val))
-    .refine((val) => !isNaN(val), { message: 'study time must be a number.' })
-    .refine((val) => val >= 0, { message: 'study time cannot be negative.' }),
+    .refine((val) => !isNaN(Number(val)), { message: 'Study time must be a number.' })
+    .refine((val) => Number(val) >= 0, { message: 'Study time cannot be negative.' }),
 });
