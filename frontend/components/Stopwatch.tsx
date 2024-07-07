@@ -7,25 +7,43 @@ const Stopwatch = () => {
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
 
+  // increase the 'time' state by 1 every second and save it to the localStorage.
   useEffect(() => {
-    let interval: ReturnType<typeof setInterval> | undefined;
-    if (isRunning) {
-      interval = setInterval(() => {
-        setTime((prevTime) => prevTime + 1);
-      }, 1000);
-    } else if (!isRunning && time !== 0) {
-      clearInterval(interval);
-    }
-    return () => clearInterval(interval);
+    if (!isRunning) return;
+
+    const intervalId = setInterval(() => {
+      setTime((prevTime) => {
+        const newTime = prevTime + 1;
+        // localStorageにtimeの値を保存することで、ページのリロードの後もtimeの値を使うことができる。
+        localStorage.setItem('stopwatch-time', newTime.toString());
+        return newTime;
+      });
+    }, 1000);
+
+    return () => clearInterval(intervalId);
   }, [isRunning]);
 
+  // localStorageからtimeの値を取得
   useEffect(() => {
+    const storedTime = localStorage.getItem('stopwatch-time');
+    if (storedTime) {
+      setTime(parseFloat(storedTime));
+    }
+  }, []);
+
+  // show warning before a reload happens.
+  useEffect(() => {
+    // コンポーネントが初めてレンダリングされると、useEffect が実行され、
+    // handleBeforeUnload イベントリスナーが beforeunload イベントに追加されます。
+
+    // これにより、ユーザーがページをリロードしたり閉じたりする操作をしようとすると、
+    // handleBeforeUnload 関数が呼び出されます。
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       e.preventDefault();
     };
-
     window.addEventListener('beforeunload', handleBeforeUnload);
 
+    // コンポーネントがDOMから削除される際に、useEffect のクリーンアップ関数が実行されます。
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
@@ -44,6 +62,8 @@ const Stopwatch = () => {
     if (confirmReset) {
       setIsRunning(false);
       setTime(0);
+      // localStorageから値を削除
+      localStorage.removeItem('stopwatch-time');
     }
   };
 
@@ -57,6 +77,7 @@ const Stopwatch = () => {
 
   return (
     <div className={'text-4xl flex flex-col space-y-3'}>
+      {/* TODO fix the position of the time when the time changes. */}
       <div>{formatTime(time)}</div>
       <div className={'flex justify-center space-x-4'}>
         <Button onClick={startStopwatch} variant={'default'} disabled={isRunning}>
