@@ -15,8 +15,8 @@ const AuthenticationRecordButton = () => {
   return (
     <div className={'flex flex-row items-center space-x-5'}>
       {!user ? (
-        <Button variant={'secondary'}>
-          <a href='/api/auth/login'>Login or Signup</a>
+        <Button variant={'black'}>
+          <a href='/api/auth/login'>Login or Signup to record study time</a>
         </Button>
       ) : (
         <>
