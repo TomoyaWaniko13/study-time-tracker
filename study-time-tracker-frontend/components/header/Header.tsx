@@ -1,8 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import DateTimeDisplay from './DateTimeDisplay';
-import UserAuthenticationButton from '@/components/header/authentication-record-Button';
+import UserAuthenticationButton from '@/components/authentication-record-Button';
 import { Separator } from '@/components/ui/separator';
+import UserAvatar from '@/components/userAvatar';
 
 // TODO extract client component part
 const Header = () => {
@@ -17,6 +18,7 @@ const Header = () => {
         <div className={'flex flex-row items-center space-x-5'}>
           <DateTimeDisplay />
           <UserAuthenticationButton />
+          <UserAvatar />
         </div>
       </nav>
       <Separator />

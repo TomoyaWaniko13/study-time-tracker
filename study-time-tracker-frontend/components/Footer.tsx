@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import DateTimeDisplay from '@/components/header/DateTimeDisplay';
-import UserAuthenticationButton from '@/components/header/authentication-record-Button';
+import UserAuthenticationButton from '@/components/authentication-record-Button';
 import React from 'react';
 
 const Footer = () => {

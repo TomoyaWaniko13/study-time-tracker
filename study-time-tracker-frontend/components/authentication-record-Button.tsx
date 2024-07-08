@@ -3,11 +3,14 @@ import { Button } from '@/components/ui/button';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import Link from 'next/link';
 import React from 'react';
+import { allowedDisplayValues } from 'next/dist/compiled/@next/font/dist/constants';
 
 const AuthenticationRecordButton = () => {
   const { user, error, isLoading } = useUser();
 
   if (error) return <div>{error.message}</div>;
+
+  if (isLoading) return <div>loading...</div>;
 
   return (
     <div className={'flex flex-row items-center space-x-5'}>
