@@ -11,14 +11,11 @@ import SubjectField from '@/components/formField/SubjectField';
 import StudyTimeField from '@/components/formField/StudyTimeField';
 import { formSchema } from '@/schemas/formSchema';
 import { useUser } from '@auth0/nextjs-auth0/client';
+import { useRouter } from 'next/navigation';
 
 const StudyTimeFormPage = () => {
+  const router = useRouter();
   const { user, error, isLoading } = useUser();
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>{error.message}</div>;
-
-  console.log(user?.email);
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -31,11 +28,13 @@ const StudyTimeFormPage = () => {
     },
   });
 
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
+
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log(values);
+    router.push('/success');
   }
 
   return (
