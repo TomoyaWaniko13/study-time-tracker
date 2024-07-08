@@ -2,7 +2,12 @@
 import { z } from 'zod';
 
 export const formSchema = z.object({
-  date: z.date({ required_error: 'A date is required.' }),
+  date: z.preprocess((arg) => {
+    if (typeof arg === 'string' || arg instanceof Date) {
+      return new Date(arg);
+    }
+    return arg;
+  }, z.date()),
   subject: z.string().min(2, { message: 'please select a subject' }),
   studyTime: z
     .string()
