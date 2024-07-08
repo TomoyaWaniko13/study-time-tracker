@@ -2,6 +2,8 @@
 import { z } from 'zod';
 
 export const formSchema = z.object({
+  username: z.string().min(1, 'name is required'),
+  email: z.string().email('Invalid email address'),
   date: z.preprocess((arg) => {
     if (typeof arg === 'string' || arg instanceof Date) {
       return new Date(arg);
@@ -14,6 +16,4 @@ export const formSchema = z.object({
     .min(1, { message: 'study time must be provided.' })
     .refine((val) => !isNaN(Number(val)), { message: 'Study time must be a number.' })
     .refine((val) => Number(val) >= 0, { message: 'Study time cannot be negative.' }),
-  username: z.string().min(1, 'name is required'),
-  email: z.string().email('Invalid email address'),
 });

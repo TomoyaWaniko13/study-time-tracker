@@ -26,9 +26,9 @@ const StudyTimeFormPage = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      ...loadFormData(),
       username: user?.name,
       email: user?.email,
+      ...loadFormData(),
     },
   });
 

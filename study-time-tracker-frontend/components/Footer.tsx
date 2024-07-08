@@ -2,10 +2,12 @@ import Link from 'next/link';
 import DateTimeDisplay from '@/components/header/DateTimeDisplay';
 import UserAuthenticationButton from '@/components/authentication-record-Button';
 import React from 'react';
+import { Separator } from '@/components/ui/separator';
 
 const Footer = () => {
   return (
-    <footer className={'bg-black text-white'}>
+    <footer>
+      <Separator />
       <nav className={'flex flex-row justify-between items-center space-x-10 p-8 text-xl'}>
         <div>
           <Link href={'/'}>
