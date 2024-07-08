@@ -18,13 +18,11 @@ const StudyTimeFormPage = () => {
   const router = useRouter();
   const { user, error, isLoading } = useUser();
 
-  // localStorageからフォームデータを読み込む関数
   const loadFormData = () => {
     const savedData = localStorage.getItem('studyTimeForm');
     return savedData ? JSON.parse(savedData) : {};
   };
 
-  // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -34,13 +32,10 @@ const StudyTimeFormPage = () => {
     },
   });
 
-  // formのデータをlocalStorageに保存するための関数
   const saveFormData = (data: z.infer<typeof formSchema>) => {
     localStorage.setItem('studyTimeForm', JSON.stringify(data));
   };
 
-  // formの値を監視して、formの値が変更されるたびにlocalStorageに保存する
-  //　componentがunmountされるとき、または依存関係が変更されるときに監視を解除する
   useEffect(() => {
     const subscription = form.watch((value) => {
       saveFormData(value);
@@ -48,7 +43,6 @@ const StudyTimeFormPage = () => {
     return () => subscription.unsubscribe();
   }, [form]);
 
-  // show warning before a reload happens.
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       e.preventDefault();

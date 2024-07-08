@@ -7,7 +7,7 @@ const SuccessPage = () => {
     <div className={'h-screen flex flex-col space-y-4 justify-center items-center'}>
       <h3 className={'text-4xl font-bold'}>Successfully submitted!</h3>
       <Button variant={'default'} size={'xl'}>
-        <Link href={'/studyTimeForm'}>record study time again</Link>
+        <Link href={'/studyTimeForm'}>record more study time</Link>
       </Button>
     </div>
   );
