@@ -10,15 +10,24 @@ import DateField from '@/components/formField/DateField';
 import SubjectField from '@/components/formField/SubjectField';
 import StudyTimeField from '@/components/formField/StudyTimeField';
 import { formSchema } from '@/schemas/formSchema';
-import Stopwatch from '@/components/Stopwatch';
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 const StudyTimeFormPage = () => {
+  const { user, error, isLoading } = useUser();
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
+
+  console.log(user?.email);
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       subject: '',
       studyTime: '',
+      username: user?.name,
+      email: user?.email,
     },
   });
 
