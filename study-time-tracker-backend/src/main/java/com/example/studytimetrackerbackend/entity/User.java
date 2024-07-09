@@ -1,9 +1,9 @@
 package com.example.studytimetrackerbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
-
 
 @Entity
 @Table(name = "User")
@@ -22,7 +22,16 @@ public class User {
     private String pictureUrl;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<StudyRecord> studyRecords;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

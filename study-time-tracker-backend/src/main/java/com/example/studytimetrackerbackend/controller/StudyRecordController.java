@@ -6,6 +6,8 @@ import com.example.studytimetrackerbackend.service.StudyRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/study-records")
 public class StudyRecordController {
@@ -27,5 +29,10 @@ public class StudyRecordController {
                 request.getSubject(),
                 request.getStudyTime()
         );
+    }
+
+    @GetMapping("/{id}")
+    public StudyRecord getStudyRecord(@PathVariable Long id) {
+        return studyRecordService.getStudyRecordById(id);
     }
 }

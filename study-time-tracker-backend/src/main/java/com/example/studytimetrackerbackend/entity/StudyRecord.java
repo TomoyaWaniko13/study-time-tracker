@@ -1,11 +1,12 @@
 package com.example.studytimetrackerbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.Date;
 
 @Entity
-@Table(name = "STUDYRECORDS")
+@Table(name = "Studyrecords")
 public class StudyRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,6 +14,7 @@ public class StudyRecord {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
     private User user;
 
     @Column(name = "date", nullable = false)
@@ -23,6 +25,14 @@ public class StudyRecord {
 
     @Column(name = "study_time", nullable = false)
     private Integer studyTime;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public User getUser() {
         return user;
