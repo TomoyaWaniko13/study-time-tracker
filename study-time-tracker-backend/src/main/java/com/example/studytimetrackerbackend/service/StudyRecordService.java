@@ -23,7 +23,7 @@ public class StudyRecordService {
         this.userRepository = userRepository;
     }
 
-    public StudyRecord createStudyRecord(String name, String email, String pictureUrl, Date date, String subject, int studyTime) {
+    public StudyRecord createStudyRecord(String name, String email, String pictureUrl, Date date, String subject, double studyTime) {
         User user = userRepository.findByEmail(email);
 
         if (user == null) {

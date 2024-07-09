@@ -24,7 +24,7 @@ public class StudyRecord {
     private String subject;
 
     @Column(name = "study_time", nullable = false)
-    private Integer studyTime;
+    private Double studyTime;
 
     public Long getId() {
         return id;
@@ -58,11 +58,11 @@ public class StudyRecord {
         this.subject = subject;
     }
 
-    public Integer getStudyTime() {
+    public Double getStudyTime() {
         return studyTime;
     }
 
-    public void setStudyTime(Integer studyTime) {
+    public void setStudyTime(Double studyTime) {
         this.studyTime = studyTime;
     }
 }

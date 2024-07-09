@@ -24,7 +24,6 @@ const StudyTimeFormPage = () => {
     username: user?.name || '',
     email: user?.email || '',
     pictureUrl: user?.picture || '',
-    studyTime: '',
   };
 
   const form = useForm<z.infer<typeof formSchema>>({
