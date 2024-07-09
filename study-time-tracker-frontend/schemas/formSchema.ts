@@ -22,11 +22,17 @@ export const formSchema = z.object({
   //   .number()
   //   .min(0, { message: 'Study time cannot be negative.' })
   //   .max(24, { message: 'Study time cannot exceed 24 hours.' }),
-  studyTime: z.preprocess(
-    (val) => parseFloat(val as string),
-    z
-      .number()
-      .min(0, { message: 'Study time cannot be negative.' })
-      .max(24, { message: 'Study time cannot exceed 24 hours.' }),
-  ),
+
+  // studyTime: z.preprocess(
+  //   (val) => parseFloat(val as string),
+  //   z
+  //     .number()
+  //     .min(0, { message: 'Study time cannot be negative.' })
+  //     .max(24, { message: 'Study time cannot exceed 24 hours.' }),
+  // ),
+
+  studyTime: z.coerce
+    .number()
+    .min(0, { message: 'Study time cannot be negative.' })
+    .max(24, { message: 'Study time cannot exceed 24 hours.' }),
 });
