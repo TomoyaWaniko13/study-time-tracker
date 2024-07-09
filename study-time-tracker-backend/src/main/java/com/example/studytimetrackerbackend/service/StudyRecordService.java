@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -48,5 +49,9 @@ public class StudyRecordService {
     public StudyRecord getStudyRecordById(Long id) {
         Optional<StudyRecord> optionalStudyRecord = studyRecordRepository.findById(id);
         return optionalStudyRecord.orElse(null);
+    }
+
+    public List<StudyRecord> getAllStudyRecords() {
+        return studyRecordRepository.findAll();
     }
 }

@@ -6,6 +6,7 @@ import com.example.studytimetrackerbackend.service.StudyRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -34,5 +35,10 @@ public class StudyRecordController {
     @GetMapping("/{id}")
     public StudyRecord getStudyRecord(@PathVariable Long id) {
         return studyRecordService.getStudyRecordById(id);
+    }
+
+    @GetMapping
+    public List<StudyRecord> getAllStudyRecords() {
+        return studyRecordService.getAllStudyRecords();
     }
 }
