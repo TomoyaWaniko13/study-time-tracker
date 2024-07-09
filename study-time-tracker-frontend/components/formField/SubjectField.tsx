@@ -39,7 +39,9 @@ const SubjectField = <T extends FieldValues>({ form, subjects, onAddSubject }: S
           <div className='flex items-center space-x-2 mt-4'>
             <Input
               type='text'
-              placeholder='Add a new subject'
+              placeholder={
+                subjects.length > 0 ? 'you can add an additional subject.' : 'You need to add at least one subject.'
+              }
               value={newSubject}
               onChange={(e) => setNewSubject(e.target.value)}
             />
@@ -49,7 +51,7 @@ const SubjectField = <T extends FieldValues>({ form, subjects, onAddSubject }: S
           </div>
 
           {subjects?.length > 0 && (
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
+            <Select onValueChange={field.onChange}>
               <FormControl>
                 <SelectTrigger>
                   <SelectValue placeholder={`${subjects ? 'select a subject you studied.' : 'first add a subject'}`} />

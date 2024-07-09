@@ -69,7 +69,7 @@ const StudyTimeFormPage = () => {
   }
 
   return (
-    <section className={'p-3 lg:p-20 max-w-3xl'}>
+    <section className={'p-3 lg:p-20 max-w-3xl h-screen'}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
           <DateField form={form} />
