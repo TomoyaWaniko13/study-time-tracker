@@ -20,14 +20,13 @@ const SubjectField = <T extends FieldValues>({ form, subjects, onAddSubject }: S
   const { toast } = useToast();
 
   const handleAddSubject = () => {
+    // if newSubject exists and the subjects doesn't contain the new Subject:
     if (newSubject && !subjects?.includes(newSubject)) {
       onAddSubject(newSubject);
       setNewSubject('');
       toast({ description: `"${newSubject}" has been added.` });
     }
   };
-
-  console.log(subjects);
 
   return (
     <FormField
@@ -49,7 +48,7 @@ const SubjectField = <T extends FieldValues>({ form, subjects, onAddSubject }: S
             </Button>
           </div>
 
-          {subjects.length > 0 && (
+          {subjects?.length > 0 && (
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                 <SelectTrigger>
@@ -57,7 +56,7 @@ const SubjectField = <T extends FieldValues>({ form, subjects, onAddSubject }: S
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
-                {subjects?.map((subject) => (
+                {subjects.map((subject) => (
                   <SelectItem key={subject} value={subject}>
                     {subject}
                   </SelectItem>
@@ -65,7 +64,6 @@ const SubjectField = <T extends FieldValues>({ form, subjects, onAddSubject }: S
               </SelectContent>
             </Select>
           )}
-
           <FormMessage />
         </FormItem>
       )}
