@@ -12,11 +12,12 @@ import StudyTimeField from '@/components/formField/StudyTimeField';
 import { formSchema } from '@/schemas/formSchema';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const StudyTimeFormPage = () => {
   const router = useRouter();
   const { user, error, isLoading } = useUser();
+  const [subjects, setSubjects] = useState<string[]>([]);
 
   const loadFormData = () => {
     const savedData = localStorage.getItem('studyTimeForm');
@@ -57,7 +58,10 @@ const StudyTimeFormPage = () => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
 
-  // 2. Define a submit handler.
+  const handleAddSubject = (newSubject: string) => {
+    setSubjects((prevSubjects) => [...prevSubjects, newSubject]);
+  };
+
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
     localStorage.removeItem('studyTimeForm');
@@ -69,7 +73,7 @@ const StudyTimeFormPage = () => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
           <DateField form={form} />
-          <SubjectField form={form} />
+          <SubjectField form={form} subjects={subjects} onAddSubject={handleAddSubject} />
           <StudyTimeField form={form} />
           <Button type='submit'>Submit</Button>
         </form>

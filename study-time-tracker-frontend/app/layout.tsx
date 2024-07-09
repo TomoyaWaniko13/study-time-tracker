@@ -4,6 +4,7 @@ import { Figtree } from 'next/font/google';
 import Header from '@/components/header/Header';
 import Footer from '@/components/Footer';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
+import { Toaster } from '@/components/ui/toaster';
 
 const roboto = Figtree({
   weight: '500',
@@ -25,8 +26,9 @@ export default function RootLayout({
       <UserProvider>
         <body className={roboto.className}>
           <Header />
-          {children}
+          <main>{children}</main>
           <Footer />
+          <Toaster />
         </body>
       </UserProvider>
     </html>
