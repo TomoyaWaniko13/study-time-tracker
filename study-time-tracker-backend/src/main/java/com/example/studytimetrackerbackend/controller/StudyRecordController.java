@@ -1,0 +1,31 @@
+package com.example.studytimetrackerbackend.controller;
+
+import com.example.studytimetrackerbackend.dto.StudyRecordRequest;
+import com.example.studytimetrackerbackend.entity.StudyRecord;
+import com.example.studytimetrackerbackend.service.StudyRecordService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/study-records")
+public class StudyRecordController {
+
+    private final StudyRecordService studyRecordService;
+
+    @Autowired
+    public StudyRecordController(StudyRecordService studyRecordService) {
+        this.studyRecordService = studyRecordService;
+    }
+
+    @PostMapping
+    public StudyRecord createStudyRecord(@RequestBody StudyRecordRequest request) {
+        return studyRecordService.createStudyRecord(
+                request.getName(),
+                request.getEmail(),
+                request.getPictureUrl(),
+                request.getDate(),
+                request.getSubject(),
+                request.getStudyTime()
+        );
+    }
+}
