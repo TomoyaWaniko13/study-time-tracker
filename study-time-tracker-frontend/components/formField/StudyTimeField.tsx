@@ -20,7 +20,13 @@ const StudyTimeField = <T extends FieldValues>({ form }: SubjectField<T>) => {
           <FormLabel>How many hours did you study?</FormLabel>
           <p className={'text-lg font-extralight'}>(Please use the stopwatch or directly enter the time.)</p>
           <FormControl>
-            <Input placeholder='Study time in hours (as a number)' type={'number'} step={'0.1'} {...field} />
+            <Input
+              placeholder='Study time in hours (as a number)'
+              type={'number'}
+              step={'0.1'}
+              {...field}
+              value={field.value ?? ''}
+            />
           </FormControl>
           <FormMessage />
         </FormItem>

@@ -19,36 +19,23 @@ const StudyTimeFormPage = () => {
   const { user, error, isLoading } = useUser();
   const [subjects, setSubjects] = useState<string[]>([]);
 
-  const loadFormData = () => {
-    const savedData = localStorage.getItem('studyTimeForm');
-    return savedData ? JSON.parse(savedData) : {};
+  // 初期データを設定
+  const initialFormData = {
+    username: user?.name || '',
+    email: user?.email || '',
+    pictureUrl: user?.picture || '',
+    studyTime: '',
   };
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: user?.name,
-      email: user?.email,
-      pictureUrl: user?.picture,
-
-      ...loadFormData(),
-    },
+    defaultValues: initialFormData, // 初期値を設定
   });
-
-  const saveFormData = (data: z.infer<typeof formSchema>) => {
-    localStorage.setItem('studyTimeForm', JSON.stringify(data));
-  };
-
-  useEffect(() => {
-    const subscription = form.watch((value) => {
-      saveFormData(value);
-    });
-    return () => subscription.unsubscribe();
-  }, [form]);
 
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       e.preventDefault();
+      e.returnValue = '';
     };
     window.addEventListener('beforeunload', handleBeforeUnload);
 
@@ -74,7 +61,6 @@ const StudyTimeFormPage = () => {
       });
 
       if (response.ok) {
-        localStorage.removeItem('studyTimeForm');
         router.push('/success');
       } else {
         console.error('Failed to submit study record');

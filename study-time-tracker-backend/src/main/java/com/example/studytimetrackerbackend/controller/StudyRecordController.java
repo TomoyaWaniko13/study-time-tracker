@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/study-records")
+@CrossOrigin(origins = "http://localhost:3000")
 public class StudyRecordController {
 
     private final StudyRecordService studyRecordService;
