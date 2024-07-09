@@ -4,6 +4,7 @@ import { z } from 'zod';
 export const formSchema = z.object({
   username: z.string().min(1, 'name is required'),
   email: z.string().email('Invalid email address'),
+  pictureUrl: z.string().url('Invalid URL'),
   date: z.preprocess((arg) => {
     if (typeof arg === 'string' || arg instanceof Date) {
       return new Date(arg);

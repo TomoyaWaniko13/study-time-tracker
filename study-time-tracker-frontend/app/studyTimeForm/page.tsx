@@ -29,6 +29,8 @@ const StudyTimeFormPage = () => {
     defaultValues: {
       username: user?.name,
       email: user?.email,
+      pictureUrl: user?.picture,
+
       ...loadFormData(),
     },
   });
@@ -62,11 +64,25 @@ const StudyTimeFormPage = () => {
     setSubjects((prevSubjects) => [...prevSubjects, newSubject]);
   };
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values);
-    localStorage.removeItem('studyTimeForm');
-    router.push('/success');
-  }
+    try {
+      const response = await fetch('http://localhost:8080/api/study-records', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      });
+
+      if (response.ok) {
+        localStorage.removeItem('studyTimeForm');
+        router.push('/success');
+      } else {
+        console.error('Failed to submit study record');
+      }
+    } catch (error) {
+      console.error('Error submitting the form: ' + error);
+    }
+  };
 
   return (
     <section className={'p-3 lg:p-20 max-w-3xl h-screen'}>

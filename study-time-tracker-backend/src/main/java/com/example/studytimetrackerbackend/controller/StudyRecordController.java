@@ -23,7 +23,7 @@ public class StudyRecordController {
     @PostMapping
     public StudyRecord createStudyRecord(@RequestBody StudyRecordRequest request) {
         return studyRecordService.createStudyRecord(
-                request.getName(),
+                request.getUsername(),
                 request.getEmail(),
                 request.getPictureUrl(),
                 request.getDate(),
