@@ -16,27 +16,30 @@ const StudyRecordsPage = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (user) {
-      fetch(`http://localhost:8080/api/study-records/email/${user.email}`)
-        .then((response) => {
+    const fetchStudyRecords = async () => {
+      if (user) {
+        try {
+          const response = await fetch(`http://localhost:8080/api/study-records/email/${user.email}`);
           if (!response.ok) {
             throw new Error(`Network response was not ok: ${response.statusText}`);
           }
-          return response.json();
-        })
-        .then((data) => setStudyRecords(data))
-        .catch((error) => {
+          const data = await response.json();
+          setStudyRecords(data);
+        } catch (error) {
           console.error('There was a problem with your fetch operation:', error);
           setError(error.message);
-        });
-    }
+        }
+      }
+    };
+
+    fetchStudyRecords();
   }, [user]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div className={'font-extralight p-10'}>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div>
+    <div className={'p-4'}>
       <h1>{user?.name}'s Study Records</h1>
       <ul>
         {studyRecords.map((record) => (

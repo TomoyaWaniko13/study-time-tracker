@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import Link from 'next/link';
 import React from 'react';
-import { allowedDisplayValues } from 'next/dist/compiled/@next/font/dist/constants';
 
 const AuthenticationRecordButton = () => {
   const { user, error, isLoading } = useUser();
@@ -21,7 +20,10 @@ const AuthenticationRecordButton = () => {
       ) : (
         <>
           <Button variant={'default'}>
-            <Link href={'/studyTimeForm'}>record study time</Link>
+            <Link href={'/studyTimeForm'}>Record study time</Link>
+          </Button>
+          <Button variant={'default'}>
+            <Link href={'/study-records'}>Check the recorded study time</Link>
           </Button>
           <Button variant={'destructive'}>
             <a href={'/api/auth/logout'}>Logout</a>
