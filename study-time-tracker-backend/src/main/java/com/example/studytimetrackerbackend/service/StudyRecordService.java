@@ -54,4 +54,12 @@ public class StudyRecordService {
     public List<StudyRecord> getAllStudyRecords() {
         return studyRecordRepository.findAll();
     }
+
+    public List<StudyRecord> getStudyRecordByUserId(Long userId) {
+        return studyRecordRepository.findByUserId(userId);
+    }
+
+    public List<StudyRecord> getStudyRecordByEmail(String email) {
+        return studyRecordRepository.findByUserEmail(email);
+    }
 }

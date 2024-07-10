@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/study-records")
-@CrossOrigin(origins = "http://localhost:3000")
 public class StudyRecordController {
 
     private final StudyRecordService studyRecordService;
@@ -41,5 +40,15 @@ public class StudyRecordController {
     @GetMapping
     public List<StudyRecord> getAllStudyRecords() {
         return studyRecordService.getAllStudyRecords();
+    }
+
+    @GetMapping("/userId/{userId}")
+    public List<StudyRecord> getStudyRecordsByUserId(@PathVariable Long userId) {
+        return studyRecordService.getStudyRecordByUserId(userId);
+    }
+
+    @GetMapping("/email/{email}")
+    public List<StudyRecord> getStudyRecordsByUserEmail(@PathVariable String email) {
+        return studyRecordService.getStudyRecordByEmail(email);
     }
 }
