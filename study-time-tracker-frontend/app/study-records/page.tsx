@@ -2,6 +2,7 @@
 
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { useEffect, useState } from 'react';
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 type StudyRecord = {
   id: number;
@@ -24,6 +25,7 @@ const StudyRecordsPage = () => {
             throw new Error(`Network response was not ok: ${response.statusText}`);
           }
           const data = await response.json();
+          console.log(data);
           setStudyRecords(data);
         } catch (error) {
           console.error('There was a problem with your fetch operation:', error);
@@ -38,17 +40,43 @@ const StudyRecordsPage = () => {
   if (isLoading) return <div className={'font-extralight p-10'}>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
+  console.log(studyRecords);
+
+  const subjects = studyRecords.map((studyRecord) => studyRecord.subject);
+  const dates = studyRecords.map((studyRecord) => studyRecord.date);
+  const studyTimes = studyRecords.map((studyRecord) => studyRecord.studyTime);
+
+  const totalStudyTime = studyTimes.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+  const formatDate = (dateString: string) => {
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    return new Date(dateString).toLocaleDateString('en-CA', options);
+  };
+
   return (
-    <div className={'p-4'}>
-      <h1>{user?.name}'s Study Records</h1>
-      <ul>
-        {studyRecords.map((record) => (
-          <li key={record.id}>
-            {record.date} - {record.subject}: {record.studyTime} hours
-          </li>
+    <Table>
+      <TableCaption>A list of your study time.</TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Date</TableHead>
+          {subjects.map((subject, index) => (
+            <TableHead key={index}>{subject}</TableHead>
+          ))}
+          <TableHead>Total</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {dates.map((date) => (
+          <TableRow>
+            <TableCell>{formatDate(date)}</TableCell>
+            {studyTimes.map((studyTime, index) => (
+              <TableCell key={index}>{studyTime}</TableCell>
+            ))}
+            <TableCell>{totalStudyTime}</TableCell>
+          </TableRow>
         ))}
-      </ul>
-    </div>
+      </TableBody>
+    </Table>
   );
 };
 
