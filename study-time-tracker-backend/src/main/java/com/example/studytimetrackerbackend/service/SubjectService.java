@@ -31,7 +31,7 @@ public class SubjectService {
                 .orElseThrow(() -> new EntityNotFoundException("Subject not found with id: " + id));
     }
 
-    public List<Subject> getSubjectByUsername(User user) {
+    public List<Subject> getSubjectByUser(User user) {
         return subjectRepository.findByUser(user);
     }
 
