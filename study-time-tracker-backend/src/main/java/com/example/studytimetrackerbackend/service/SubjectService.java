@@ -13,18 +13,25 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class SubjectService {
-
     private final SubjectRepository subjectRepository;
 
     public Subject createSubject(User user, String subjectName) {
-        return subjectRepository.save(Subject.builder().user(user).subjectName(subjectName).createdAt(LocalDateTime.now()).build());
+        return subjectRepository.save(
+                Subject
+                        .builder()
+                        .user(user)
+                        .subjectName(subjectName)
+                        .createdAt(LocalDateTime.now()).build()
+        );
     }
 
     public Subject getSubjectById(Long id) {
-        return subjectRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Subject not found with id: " + id));
+        return subjectRepository
+                .findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Subject not found with id: " + id));
     }
 
-    public List<Subject> getSubjectByUser(User user) {
+    public List<Subject> getSubjectByUsername(User user) {
         return subjectRepository.findByUser(user);
     }
 

@@ -3,8 +3,8 @@ package com.example.studytimetrackerbackend.service;
 import com.example.studytimetrackerbackend.model.User;
 import com.example.studytimetrackerbackend.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -13,6 +13,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserService {
+
     private final UserRepository userRepository;
 
     public User createUser(String username, String email) {
@@ -20,11 +21,15 @@ public class UserService {
     }
 
     public User getUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found with id: " + id));
+        return userRepository
+                .findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + id));
     }
 
     public User getUserByUsername(String username) {
-        return userRepository.findByUserName(username).orElseThrow(() -> new EntityNotFoundException("User not found with id: " + username));
+        return userRepository
+                .findByUserName(username)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with username: " + username));
     }
 
     public List<User> getAllUsers() {
