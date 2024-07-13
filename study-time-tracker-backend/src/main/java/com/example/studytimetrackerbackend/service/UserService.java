@@ -26,11 +26,12 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + id));
     }
 
-    public User getUserByUsername(String username) {
+    public User getUserByUsernameAndEmail(String username, String email) {
         return userRepository
-                .findByUserName(username)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with username: " + username));
+                .findByUsernameAndEmail(username, email)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with username: " + username + " and email: " + email));
     }
+
 
     public List<User> getAllUsers() {
         return userRepository.findAll();

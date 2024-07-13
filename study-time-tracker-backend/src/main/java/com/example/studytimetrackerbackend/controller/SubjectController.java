@@ -35,7 +35,14 @@ public class SubjectController extends BaseController {
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Subject>> getUserSubjects(@PathVariable Long userId) {
         User user = userService.getUserById(userId);
-        List<Subject> subjects = subjectService.getSubjectByUser(user);
+        List<Subject> subjects = subjectService.getSubjectsByUser(user);
+        return ResponseEntity.ok(subjects);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Subject>> getUserSubjectsByUsernameAndEmail(@RequestParam String username, @RequestParam String email) {
+        User user = userService.getUserByUsernameAndEmail(username, email);
+        List<Subject> subjects = subjectService.getSubjectsByUser(user);
         return ResponseEntity.ok(subjects);
     }
 

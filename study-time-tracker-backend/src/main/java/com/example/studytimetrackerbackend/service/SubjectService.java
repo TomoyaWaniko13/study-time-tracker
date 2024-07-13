@@ -3,6 +3,7 @@ package com.example.studytimetrackerbackend.service;
 import com.example.studytimetrackerbackend.model.Subject;
 import com.example.studytimetrackerbackend.model.User;
 import com.example.studytimetrackerbackend.repository.SubjectRepository;
+import com.example.studytimetrackerbackend.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,9 +32,10 @@ public class SubjectService {
                 .orElseThrow(() -> new EntityNotFoundException("Subject not found with id: " + id));
     }
 
-    public List<Subject> getSubjectByUser(User user) {
+    public List<Subject> getSubjectsByUser(User user) {
         return subjectRepository.findByUser(user);
     }
+
 
     public Subject updateSubject(Long id, String subjectName) {
         Subject subject = getSubjectById(id);

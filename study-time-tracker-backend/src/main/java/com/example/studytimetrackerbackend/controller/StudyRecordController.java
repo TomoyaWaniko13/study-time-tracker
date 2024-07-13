@@ -41,12 +41,14 @@ public class StudyRecordController extends BaseController {
         return ResponseEntity.ok(studyRecords);
     }
 
-    @GetMapping("/user/{userId}/subject/{subjectId}")
-    public ResponseEntity<List<StudyRecord>> getUserSubjectRecords(@PathVariable Long userId, @PathVariable Long subjectId) {
-        User user = userService.getUserById(userId);
-        Subject subject = subjectService.getSubjectById(subjectId);
-        List<StudyRecord> studyRecords = studyRecordService.getStudyRecordByUserAndSubject(user, subject);
-        return ResponseEntity.ok(studyRecords);
+    @GetMapping("/search")
+    public ResponseEntity<List<StudyRecord>> getStudyRecordsByUsernameAndEmail(@RequestParam String username, @RequestParam String email) {
+        User user = userService.getUserByUsernameAndEmail(username, email);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+        List<StudyRecord> records = studyRecordService.getStudyRecordsByUser(user);
+        return ResponseEntity.ok(records);
     }
 
     @PutMapping("/{id}")

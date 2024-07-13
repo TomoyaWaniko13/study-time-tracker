@@ -20,7 +20,7 @@ public class Subject {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "subject_name", nullable = false)
+    @Column(name = "subject_name", nullable = false, length = 100)
     private String subjectName;
 
     @Column(name = "created_at")
